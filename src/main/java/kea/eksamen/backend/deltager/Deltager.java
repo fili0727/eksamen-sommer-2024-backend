@@ -30,12 +30,11 @@ public class Deltager {
     @OneToMany(mappedBy = "deltager")
     private List<Resultat> resultater;
 
-    public Deltager(String navn, Køn køn, int alder, Klub klub, Disciplin disciplin){
+    public Deltager(String navn, Køn køn, int alder, Klub klub){
         this.navn = navn;
         this.køn = køn;
         this.alder = alder;
         this.klub = klub;
-        this.discipliner.add(disciplin);
     }
 
 

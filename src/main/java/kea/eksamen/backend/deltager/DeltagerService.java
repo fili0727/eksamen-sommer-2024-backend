@@ -27,7 +27,7 @@ public class DeltagerService {
         return deltagerRepository.save(deltager);
     }
 
-    public  Deltager redigerDeltager(int id, Deltager deltager) {
+    public Deltager redigerDeltager(int id, Deltager deltager) {
         Optional<Deltager> valgteDeltager = deltagerRepository.findById(id);
 
         if (valgteDeltager.isEmpty()){
