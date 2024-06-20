@@ -38,27 +38,16 @@ public class ResultatController {
     }
 
 
-//    @PostMapping
-//    public ResponseEntity<List<Resultat>> opretResultaterForDeltagere(@RequestBody List<Integer> deltagerIds, @RequestBody List<Resultat> resultater) {
-//        try {
-//            List<Resultat> createdResultater = resultatService.opretResultaterForDeltagere(deltagerIds, resultater);
-//            return ResponseEntity.status(HttpStatus.CREATED).body(createdResultater);
-//        } catch (IllegalArgumentException e) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//        }
-//    }
-
-    @PostMapping("/{deltagerId}/{disciplinId}")
-    public ResponseEntity<Resultat> opretResultatForDeltager(@PathVariable int deltagerId, @PathVariable int disciplinId, @RequestBody Resultat resultat) {
+    @PostMapping()
+    public ResponseEntity<ResultatDTO> opretResultat(@RequestBody ResultatDTO resultatDTO) {
         try {
-            Resultat createdResultat = resultatService.opretResultatForDeltager(deltagerId, disciplinId, resultat);
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdResultat);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            ResultatDTO oprettetResultat = resultatService.opretResultat(resultatDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(oprettetResultat);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Resultat> redigerResultat(@PathVariable int id, @RequestBody Resultat resultat) {

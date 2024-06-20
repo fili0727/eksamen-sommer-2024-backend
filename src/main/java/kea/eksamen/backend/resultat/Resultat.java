@@ -2,8 +2,6 @@ package kea.eksamen.backend.resultat;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import kea.eksamen.backend.deltager.Deltager;
 import kea.eksamen.backend.disciplin.Disciplin;
@@ -43,6 +41,17 @@ public class Resultat {
     public Resultat() {
     }
 
+    public Resultat(Deltager deltager, Disciplin disciplin, ResultatEnum resultatEnum, LocalDate dato, double distance, int points, int tidISekunder, double højde) {
+        this.deltager = deltager;
+        this.disciplin = disciplin;
+        this.resultatEnum = resultatEnum;
+        this.dato = dato;
+        this.distance = distance;
+        this.point = point;
+        this.tidSekunder = tidSekunder;
+        this.højde = højde;
+    }
+
     public Resultat(ResultatEnum resultatEnum, LocalDate dato, Double distance, Integer point, Integer tidSekunder,Double højde) {
         this.resultatEnum = resultatEnum;
         this.dato = dato;
@@ -52,39 +61,6 @@ public class Resultat {
         this.højde = højde;
     }
 
-    public Object getResultatVærdi() {
-        switch (resultatEnum) {
-            case DISTANCE:
-                return distance;
-            case POINT:
-                return point;
-            case TID:
-                return tidSekunder;
-            case HØJDE:
-                return højde;
-            default:
-                throw new IllegalArgumentException("ukendt resultat type");
-        }
-    }
-
-    public void setResultatVærdi(Object værdi) {
-        switch (resultatEnum) {
-            case DISTANCE:
-                this.distance = (Double) værdi;
-                break;
-            case POINT:
-                this.point = (Integer) værdi;
-                break;
-            case TID:
-                this.tidSekunder = (Integer) værdi;
-                break;
-            case HØJDE:
-                this.højde = (Double) værdi;
-                break;
-            default:
-                throw new IllegalArgumentException("ukendt resultat type");
-        }
-    }
 
     public void setDisciplin(Disciplin disciplin) {
         if (disciplin.getResultatEnum() != this.resultatEnum) {

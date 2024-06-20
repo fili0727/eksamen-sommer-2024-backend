@@ -39,43 +39,6 @@ public Resultat opretResultat(Resultat resultat) {
         return resultatRepository.save(resultat);
     }
 
-    public Resultat opretResultatForDeltager(int deltagerId, int disciplinId, Resultat resultat) {
-        Optional<Deltager> deltager = deltagerService.findDeltagerMedId(deltagerId);
-        if (deltager.isEmpty()) {
-            throw new IllegalArgumentException("No Deltager found with id: " + deltagerId);
-        }
-        resultat.setDeltager(deltager.get());
-
-        Optional<Disciplin> disciplin = disciplinService.findDisciplinMedId(disciplinId);
-        if (disciplin.isEmpty()) {
-            throw new IllegalArgumentException("No Disciplin found with id: " + disciplinId);
-        }
-        resultat.setDisciplin(disciplin.get());
-
-        return resultatRepository.save(resultat);
-    }
-
-//    public List<Resultat> opretResultaterForDeltagere(List<Integer> deltagerIds, List<Resultat> resultater) {
-//        if (deltagerIds.size() != resultater.size()) {
-//            throw new IllegalArgumentException("The number of Deltagere and Resultater must be the same");
-//        }
-//
-//        List<Resultat> savedResultater = new ArrayList<>();
-//        for (int i = 0; i < deltagerIds.size(); i++) {
-//            int deltagerId = deltagerIds.get(i);
-//            Resultat resultat = resultater.get(i);
-//
-//            Optional<Deltager> deltager = deltagerService.findDeltagerMedId(deltagerId);
-//            if (deltager.isEmpty()) {
-//                throw new IllegalArgumentException("No Deltager found with id: " + deltagerId);
-//            }
-//
-//            resultat.setDeltager(deltager.get());
-//            savedResultater.add(resultatRepository.save(resultat));
-//        }
-//
-//        return savedResultater;
-//    }
 
     public Resultat redigerResultat(int id, Resultat resultat) {
         Optional<Resultat> valgteResultat = resultatRepository.findById(id);
@@ -97,11 +60,51 @@ public Resultat opretResultat(Resultat resultat) {
 
         return resultatTilRedigering;
     }
+//Co pilot/ chatgpt start
+public ResultatDTO opretResultat(ResultatDTO resultatDTO) {
+    // Convert the DTO to a Resultat object
+    Resultat resultat = fraDTO(resultatDTO);
 
+    // Save the Resultat object to the repository
+    Resultat savedResultat = resultatRepository.save(resultat);
+
+    // Convert the saved Resultat back to a DTO and return it
+    return tilDTO(savedResultat);
+}
+
+    //co pilot/chat gpt slut
 
 
     public void sletResultat(int id) {
         resultatRepository.deleteById(id);
     }
 
+    public ResultatDTO tilDTO(Resultat resultat) {
+        return new ResultatDTO(
+                resultat.getDato(),
+                resultat.getDistance(),
+                resultat.getPoint(),
+                resultat.getTidSekunder(),
+                resultat.getHøjde(),
+                resultat.getResultatEnum(),
+                resultat.getDeltager().getId(),
+                resultat.getDisciplin().getId()
+        );
+    }
+
+    public Resultat fraDTO(ResultatDTO resultatDTO) {
+        Deltager deltager = deltagerService.findDeltagerMedId(resultatDTO.deltagerId()).orElse(null);
+        Disciplin disciplin = disciplinService.findDisciplinMedId(resultatDTO.disciplinId()).orElse(null);
+
+        return new Resultat(
+                deltager,
+                disciplin,
+                resultatDTO.resultatEnum(),
+                resultatDTO.dato(),
+                resultatDTO.distance(),
+                resultatDTO.point(),
+                resultatDTO.tidSekunder(),
+                resultatDTO.højde()
+        );
+    }
 }
