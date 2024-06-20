@@ -21,9 +21,11 @@ public abstract class Resultat {
     @ManyToOne
     @JoinColumn(name = "deltager_id")
     private Deltager deltager;
+
     @ManyToOne
     @JoinColumn(name = "disciplin_id")
     private Disciplin disciplin;
+
     public abstract String getResultatType();
     public abstract LocalDate getDato();
     public abstract Object getResultatVærdi();

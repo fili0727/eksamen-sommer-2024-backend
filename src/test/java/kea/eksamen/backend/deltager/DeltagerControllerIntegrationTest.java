@@ -80,7 +80,7 @@ public class DeltagerControllerIntegrationTest {
                 .andExpect(jsonPath("$.klub", is("DEN")))
                 .andExpect(jsonPath("$.køn", is("MAND")));
     }
-
+//
 //    @Test
 //    public void testRedigerDeltager() throws Exception {
 //        int id = 1;
@@ -105,8 +105,8 @@ public class DeltagerControllerIntegrationTest {
 //                .andExpect(jsonPath("$.klub", is("SWE")))
 //                .andExpect(jsonPath("$.køn", is("KVINDE")));
 //    }
-//
-//
+
+
     @Test
     public void testSletDeltager() throws Exception {
         int id = 1;

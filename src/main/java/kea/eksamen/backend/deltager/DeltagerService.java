@@ -37,7 +37,6 @@ public class DeltagerService {
         Deltager deltagerTilRedigering = valgteDeltager.get();
         deltagerTilRedigering.setNavn(deltager.getNavn());
         deltagerTilRedigering.setAlder(deltager.getAlder());
-        deltagerTilRedigering.setDiscipliner(deltager.getDiscipliner());
         deltagerTilRedigering.setKøn(deltager.getKøn());
         deltagerTilRedigering.setKlub(deltager.getKlub());
 
