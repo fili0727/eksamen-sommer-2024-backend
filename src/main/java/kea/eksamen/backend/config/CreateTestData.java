@@ -60,12 +60,19 @@ public class CreateTestData implements CommandLineRunner {
         disciplinRepository.saveAll(disciplinList);
 
         // Assign disciplines to participants
-        deltager1.setDiscipliner(List.of(disciplin1, disciplin4));
+        deltager1.setDiscipliner(List.of(disciplin4));
         deltager2.setDiscipliner(List.of(disciplin2));
         deltager3.setDiscipliner(List.of(disciplin3));
         deltager4.setDiscipliner(List.of(disciplin4));
         deltager5.setDiscipliner(List.of(disciplin5));
         deltager6.setDiscipliner(List.of(disciplin6));
+        deltager7.setDiscipliner(List.of(disciplin4));
+        deltager8.setDiscipliner(List.of(disciplin2));
+        deltager9.setDiscipliner(List.of(disciplin3));
+        deltager10.setDiscipliner(List.of(disciplin4));
+        deltager11.setDiscipliner(List.of(disciplin5));
+        deltager12.setDiscipliner(List.of(disciplin6));
+
         deltagerRepository.saveAll(deltagerList); // Save again after setting disciplines
 
         // Creating and saving Resultat objects
