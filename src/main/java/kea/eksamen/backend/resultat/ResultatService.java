@@ -4,6 +4,7 @@ import kea.eksamen.backend.deltager.Deltager;
 import kea.eksamen.backend.deltager.DeltagerService;
 import kea.eksamen.backend.disciplin.Disciplin;
 import kea.eksamen.backend.disciplin.DisciplinService;
+import kea.eksamen.backend.enums.ResultatEnum;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -82,13 +83,13 @@ public ResultatDTO opretResultat(ResultatDTO resultatDTO) {
     public ResultatDTO tilDTO(Resultat resultat) {
         return new ResultatDTO(
                 resultat.getDato(),
-                resultat.getDistance(),
-                resultat.getPoint(),
-                resultat.getTidSekunder(),
-                resultat.getHøjde(),
+                resultat.getDistance()  != null ? resultat.getDistance() : 0,
+                resultat.getPoint()  != null ? resultat.getPoint() : 0,
+                resultat.getTidSekunder()  != null ? resultat.getTidSekunder() : 0,
+                resultat.getHøjde()  != null ? resultat.getHøjde() : 0,
                 resultat.getResultatEnum(),
-                resultat.getDeltager().getId(),
-                resultat.getDisciplin().getId()
+                resultat.getDeltager() != null ? resultat.getDeltager().getId() : 0,
+                resultat.getDisciplin() != null ? resultat.getDisciplin().getId() : 0
         );
     }
 

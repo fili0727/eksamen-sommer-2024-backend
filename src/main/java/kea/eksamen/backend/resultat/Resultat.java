@@ -41,7 +41,7 @@ public class Resultat {
     public Resultat() {
     }
 
-    public Resultat(Deltager deltager, Disciplin disciplin, ResultatEnum resultatEnum, LocalDate dato, double distance, int points, int tidISekunder, double højde) {
+    public Resultat(Deltager deltager, Disciplin disciplin, ResultatEnum resultatEnum, LocalDate dato, double distance, int point, int tidSekunder, double højde) {
         this.deltager = deltager;
         this.disciplin = disciplin;
         this.resultatEnum = resultatEnum;
