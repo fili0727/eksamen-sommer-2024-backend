@@ -1,5 +1,6 @@
 package kea.eksamen.backend.deltager;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import kea.eksamen.backend.disciplin.Disciplin;
 import kea.eksamen.backend.enums.Klub;
@@ -10,7 +11,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
-
 @Setter
 @Getter
 @NoArgsConstructor
@@ -20,15 +20,15 @@ public class Deltager {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String navn;
+    @Enumerated(EnumType.STRING)
     private Køn køn;
     private int alder;
+    @Enumerated(EnumType.STRING)
     private Klub klub;
 
     @ManyToMany
     private List<Disciplin> discipliner;
 
-    @OneToMany(mappedBy = "deltager")
-    private List<Resultat> resultater;
 
     public Deltager(String navn, Køn køn, int alder, Klub klub){
         this.navn = navn;
@@ -37,5 +37,11 @@ public class Deltager {
         this.klub = klub;
     }
 
-
+    public Deltager(int id, String navn, Køn køn, int alder, Klub klub){
+        this.id = id;
+        this.navn = navn;
+        this.køn = køn;
+        this.alder = alder;
+        this.klub = klub;
+    }
 }

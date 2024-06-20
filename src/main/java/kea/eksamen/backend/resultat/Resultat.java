@@ -5,30 +5,70 @@ import java.time.LocalDate;
 import jakarta.persistence.*;
 import kea.eksamen.backend.deltager.Deltager;
 import kea.eksamen.backend.disciplin.Disciplin;
+import kea.eksamen.backend.enums.ResultatEnum;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
+@AllArgsConstructor
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Resultat {
+public class Resultat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+
     @ManyToOne
     @JoinColumn(name = "deltager_id")
     private Deltager deltager;
+
     @ManyToOne
     @JoinColumn(name = "disciplin_id")
     private Disciplin disciplin;
-    public abstract String getResultatType();
-    public abstract LocalDate getDato();
-    public abstract Object getResultatVærdi();
 
 
+    @Enumerated(EnumType.STRING)
+    private ResultatEnum resultatEnum;
+
+    private LocalDate dato;
+    private Double distance;
+    private Integer point;
+    private Integer tidSekunder;
+    private Double højde;
+
+    public Resultat() {
+    }
+
+    public Resultat(Deltager deltager, Disciplin disciplin, ResultatEnum resultatEnum, LocalDate dato, double distance, int point, int tidSekunder, double højde) {
+        this.deltager = deltager;
+        this.disciplin = disciplin;
+        this.resultatEnum = resultatEnum;
+        this.dato = dato;
+        this.distance = distance;
+        this.point = point;
+        this.tidSekunder = tidSekunder;
+        this.højde = højde;
+    }
+
+    public Resultat(ResultatEnum resultatEnum, LocalDate dato, Double distance, Integer point, Integer tidSekunder,Double højde) {
+        this.resultatEnum = resultatEnum;
+        this.dato = dato;
+        this.distance = distance;
+        this.point = point;
+        this.tidSekunder = tidSekunder;
+        this.højde = højde;
+    }
 
 
+//    public void setDisciplin(Disciplin disciplin) {
+//        if (disciplin.getResultatEnum() != this.resultatEnum) {
+//            throw new IllegalArgumentException("Resultat type matcher ikke disciplinens forventede resultat type.");
+//        }
+//        if (this.deltager != null && !this.deltager.getDiscipliner().contains(disciplin)) {
+//            throw new IllegalArgumentException("Deltager har ikke den givne Disciplin.");
+//        }
+//        this.disciplin = disciplin;
+//    }
 }
