@@ -20,8 +20,10 @@ public class Deltager {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String navn;
+    @Enumerated(EnumType.STRING)
     private Køn køn;
     private int alder;
+    @Enumerated(EnumType.STRING)
     private Klub klub;
 
     @ManyToMany
@@ -36,6 +38,15 @@ public class Deltager {
         this.alder = alder;
         this.klub = klub;
     }
+
+    public Deltager(int id, String navn, Køn køn, int alder, Klub klub){
+        this.id = id;
+        this.navn = navn;
+        this.køn = køn;
+        this.alder = alder;
+        this.klub = klub;
+    }
+
 
 
 }
