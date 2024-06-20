@@ -1,4 +1,4 @@
-package kea.eksamen.backend.resultat;
+package kea.eksamen.backend.enums;
 
 public enum ResultatEnum {
     DISTANCE,

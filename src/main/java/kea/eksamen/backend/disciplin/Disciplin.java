@@ -1,9 +1,11 @@
 package kea.eksamen.backend.disciplin;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import kea.eksamen.backend.deltager.Deltager;
 import kea.eksamen.backend.resultat.Resultat;
-import kea.eksamen.backend.resultat.ResultatEnum;
+import kea.eksamen.backend.enums.ResultatEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,12 +13,11 @@ import lombok.Setter;
 
 import java.util.List;
 
-
 @Entity
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
+
 public class Disciplin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,11 +27,6 @@ public class Disciplin {
     @Enumerated(EnumType.STRING)
     private ResultatEnum resultatEnum;
 
-    @ManyToMany(mappedBy = "discipliner")
-    private List<Deltager> deltagere;
-
-    @OneToMany(mappedBy = "disciplin")
-    private List<Resultat> resultater;
 
     public Disciplin(String disciplinNavn, ResultatEnum resultatEnum) {
         this.disciplinNavn = disciplinNavn;
@@ -43,4 +39,3 @@ public class Disciplin {
         this.resultatEnum = resultatEnum;
     }
 }
-

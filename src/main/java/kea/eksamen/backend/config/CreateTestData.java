@@ -7,14 +7,12 @@ import kea.eksamen.backend.disciplin.DisciplinRepository;
 import kea.eksamen.backend.enums.Klub;
 import kea.eksamen.backend.enums.Køn;
 import kea.eksamen.backend.resultat.Resultat;
-import kea.eksamen.backend.resultat.ResultatEnum;
+import kea.eksamen.backend.enums.ResultatEnum;
 import kea.eksamen.backend.resultat.ResultatRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @Component
@@ -71,7 +69,7 @@ public class CreateTestData implements CommandLineRunner {
         deltagerRepository.saveAll(deltagerList); // Save again after setting disciplines
 
         // Creating and saving Resultat objects
-        Resultat resultat1 = new Resultat(ResultatEnum.TID, LocalDate.now(), null, null, Duration.ofMinutes(8).plusSeconds(32), null);
+        Resultat resultat1 = new Resultat(ResultatEnum.TID, LocalDate.now(), null, null, 430, null);
         resultat1.setDeltager(deltager1);
         resultat1.setDisciplin(disciplin1);
 
@@ -83,7 +81,7 @@ public class CreateTestData implements CommandLineRunner {
         resultat3.setDeltager(deltager3);
         resultat3.setDisciplin(disciplin3);
 
-        Resultat resultat4 = new Resultat(ResultatEnum.TID, LocalDate.now(), null, null, Duration.ofMinutes(12).plusSeconds(15), null);
+        Resultat resultat4 = new Resultat(ResultatEnum.TID, LocalDate.now(), null, null, 50, null);
         resultat4.setDeltager(deltager4);
         resultat4.setDisciplin(disciplin4);
 
@@ -95,7 +93,12 @@ public class CreateTestData implements CommandLineRunner {
         resultat6.setDeltager(deltager6);
         resultat6.setDisciplin(disciplin6);
 
-        List<Resultat> resultatList = List.of(resultat1, resultat2, resultat3, resultat4, resultat5, resultat6);
+        Resultat resultat7 = new Resultat(ResultatEnum.TID, LocalDate.now(), null, null, 400, null);
+        resultat7.setDeltager(deltager1);
+        resultat7.setDisciplin(disciplin4);
+
+
+        List<Resultat> resultatList = List.of(resultat1, resultat2, resultat3, resultat4, resultat5, resultat6, resultat7);
         resultatRepository.saveAll(resultatList);
     }
 }
