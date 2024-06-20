@@ -23,7 +23,7 @@ import static org.hamcrest.Matchers.is;
 @SpringBootTest
 @AutoConfigureMockMvc
 public class DeltagerControllerIntegrationTest {
-
+//LAVET AF CO PILOT
     @Autowired
     private MockMvc mockMvc;
 
@@ -80,31 +80,6 @@ public class DeltagerControllerIntegrationTest {
                 .andExpect(jsonPath("$.klub", is("DEN")))
                 .andExpect(jsonPath("$.køn", is("MAND")));
     }
-//
-//    @Test
-//    public void testRedigerDeltager() throws Exception {
-//        int id = 1;
-//        testDeltager.setNavn("Ny Test Navn");
-//        testDeltager.setAlder(25);
-//        testDeltager.setKlub(Klub.SWE);
-//        testDeltager.setKøn(Køn.KVINDE);
-//        String updatedDeltagerJson = new ObjectMapper().writeValueAsString(testDeltager);
-//
-//        mockMvc.perform(put("/api/deltagere/" + id)
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(updatedDeltagerJson))
-//                .andExpect(status().isOk())
-//                .andReturn();
-//
-//        mockMvc.perform(put("/api/deltagere/" + id)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(updatedDeltagerJson))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.navn", is("Ny Test Navn")))
-//                .andExpect(jsonPath("$.alder", is(25)))
-//                .andExpect(jsonPath("$.klub", is("SWE")))
-//                .andExpect(jsonPath("$.køn", is("KVINDE")));
-//    }
 
 
     @Test
