@@ -32,6 +32,11 @@ public class DeltagerController {
         }
     }
 
+    /**
+     * Opretter en deltager
+     * @param deltager
+     * @return Deltager
+     */
     @PostMapping
     public ResponseEntity<Deltager> opretDeltager(@RequestBody Deltager deltager) {
         try {

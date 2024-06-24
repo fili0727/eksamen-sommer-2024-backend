@@ -62,13 +62,4 @@ public class Resultat {
     }
 
 
-//    public void setDisciplin(Disciplin disciplin) {
-//        if (disciplin.getResultatEnum() != this.resultatEnum) {
-//            throw new IllegalArgumentException("Resultat type matcher ikke disciplinens forventede resultat type.");
-//        }
-//        if (this.deltager != null && !this.deltager.getDiscipliner().contains(disciplin)) {
-//            throw new IllegalArgumentException("Deltager har ikke den givne Disciplin.");
-//        }
-//        this.disciplin = disciplin;
-//    }
 }

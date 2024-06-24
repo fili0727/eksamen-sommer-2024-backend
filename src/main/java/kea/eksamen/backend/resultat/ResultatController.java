@@ -50,9 +50,9 @@ public class ResultatController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Resultat> redigerResultat(@PathVariable int id, @RequestBody Resultat resultat) {
+    public ResponseEntity<ResultatDTO> redigerResultat(@PathVariable int id, @RequestBody ResultatDTO resultatDTO) {
         try {
-            Resultat updatedResultat = resultatService.redigerResultat(id, resultat);
+            ResultatDTO updatedResultat = resultatService.redigerResultat(id, resultatDTO);
             return ResponseEntity.ok(updatedResultat);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

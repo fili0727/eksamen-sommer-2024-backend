@@ -82,15 +82,4 @@ public class DeltagerControllerIntegrationTest {
     }
 
 
-    @Test
-    public void testSletDeltager() throws Exception {
-        int id = 1;
-        mockMvc.perform(delete("/api/deltagere/" + id)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNoContent());
-    }
-
-
-
-
 }

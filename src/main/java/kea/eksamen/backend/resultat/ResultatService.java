@@ -41,7 +41,7 @@ public Resultat opretResultat(Resultat resultat) {
     }
 
 
-    public Resultat redigerResultat(int id, Resultat resultat) {
+    public ResultatDTO redigerResultat(int id, ResultatDTO resultatDTO) {
         Optional<Resultat> valgteResultat = resultatRepository.findById(id);
 
         if (valgteResultat.isEmpty()) {
@@ -49,19 +49,26 @@ public Resultat opretResultat(Resultat resultat) {
         }
 
         Resultat resultatTilRedigering = valgteResultat.get();
-        resultatTilRedigering.setDeltager(resultat.getDeltager());
-        resultatTilRedigering.setDisciplin(resultat.getDisciplin());
-        resultatTilRedigering.setDato(resultat.getDato());
-        resultatTilRedigering.setDistance(resultat.getDistance());
-        resultatTilRedigering.setPoint(resultat.getPoint());
-        resultatTilRedigering.setTidSekunder(resultat.getTidSekunder());
-        resultatTilRedigering.setHøjde(resultat.getHøjde());
+        Resultat nyResultat = fraDTO(resultatDTO);
 
-        resultatRepository.save(resultatTilRedigering);
 
-        return resultatTilRedigering;
+        resultatTilRedigering.setDeltager(nyResultat.getDeltager());
+        resultatTilRedigering.setDisciplin(nyResultat.getDisciplin());
+        resultatTilRedigering.setDato(nyResultat.getDato());
+        resultatTilRedigering.setDistance(nyResultat.getDistance());
+        resultatTilRedigering.setPoint(nyResultat.getPoint());
+        resultatTilRedigering.setTidSekunder(nyResultat.getTidSekunder());
+        resultatTilRedigering.setHøjde(nyResultat.getHøjde());
+        resultatTilRedigering.setResultatEnum(nyResultat.getResultatEnum());
+
+
+        Resultat savedResultat = resultatRepository.save(resultatTilRedigering);
+
+
+        return tilDTO(savedResultat);
     }
-//Co pilot/ chatgpt start
+
+    //Co pilot/ chatgpt start
 public ResultatDTO opretResultat(ResultatDTO resultatDTO) {
     // Convert the DTO to a Resultat object
     Resultat resultat = fraDTO(resultatDTO);

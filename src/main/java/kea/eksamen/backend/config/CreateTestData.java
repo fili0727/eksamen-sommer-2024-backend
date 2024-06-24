@@ -77,33 +77,34 @@ public class CreateTestData implements CommandLineRunner {
 
         // Creating and saving Resultat objects
         Resultat resultat1 = new Resultat(ResultatEnum.TID, LocalDate.now(), null, null, 430, null);
-        resultat1.setDeltager(deltager1);
         resultat1.setDisciplin(disciplin1);
+        resultat1.setDeltager(deltager1);
 
         Resultat resultat2 = new Resultat(ResultatEnum.HØJDE, LocalDate.now(), null, null, null, 2.1);
-        resultat2.setDeltager(deltager2);
         resultat2.setDisciplin(disciplin2);
+        resultat2.setDeltager(deltager2);
 
         Resultat resultat3 = new Resultat(ResultatEnum.DISTANCE, LocalDate.now(), 6.5, null, null, null);
-        resultat3.setDeltager(deltager3);
         resultat3.setDisciplin(disciplin3);
+        resultat3.setDeltager(deltager3);
 
         Resultat resultat4 = new Resultat(ResultatEnum.TID, LocalDate.now(), null, null, 50, null);
-        resultat4.setDeltager(deltager4);
         resultat4.setDisciplin(disciplin4);
+        resultat4.setDeltager(deltager4);
 
         Resultat resultat5 = new Resultat(ResultatEnum.DISTANCE, LocalDate.now(), 15.3, null, null, null);
-        resultat5.setDeltager(deltager5);
         resultat5.setDisciplin(disciplin5);
+        resultat5.setDeltager(deltager5);
+
 
         Resultat resultat6 = new Resultat(ResultatEnum.POINT, LocalDate.now(), null, 10, null, null);
-        resultat6.setDeltager(deltager6);
         resultat6.setDisciplin(disciplin6);
+        resultat6.setDeltager(deltager6);
+
 
         Resultat resultat7 = new Resultat(ResultatEnum.TID, LocalDate.now(), null, null, 400, null);
-        resultat7.setDeltager(deltager1);
         resultat7.setDisciplin(disciplin4);
-
+        resultat7.setDeltager(deltager1);
 
         List<Resultat> resultatList = List.of(resultat1, resultat2, resultat3, resultat4, resultat5, resultat6, resultat7);
         resultatRepository.saveAll(resultatList);

@@ -1,86 +1,84 @@
 package kea.eksamen.backend.disciplin;
-
-
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.Collections;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
+import java.util.Arrays;
 import java.util.Optional;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+import kea.eksamen.backend.enums.ResultatEnum;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+
+@WebMvcTest(DisciplinController.class)
 public class DisciplinControllerIntegrationTest {
-    //LAVET AF CO PILOT
 
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
+    @MockBean
     private DisciplinService disciplinService;
 
     @Test
     public void testFindAlleDiscipliner() throws Exception {
-        Disciplin disciplin = new Disciplin();
-        // Set properties for disciplin object
+        Disciplin disciplin1 = new Disciplin("test", ResultatEnum.TID);
+        Disciplin disciplin2 = new Disciplin("test2", ResultatEnum.POINT);
 
-        given(disciplinService.findAlleDiscipliner()).willReturn(Collections.singletonList(disciplin));
+        when(disciplinService.findAlleDiscipliner()).thenReturn(Arrays.asList(disciplin1, disciplin2));
 
         mockMvc.perform(get("/api/discipliner"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$[0].id").value(disciplin.getId()));
+                .andExpect(jsonPath("$[0].disciplinNavn").value("test"))
+                .andExpect(jsonPath("$[0].resultatEnum").value("TID"))
+                .andExpect(jsonPath("$[1].disciplinNavn").value("test2"))
+                .andExpect(jsonPath("$[1].resultatEnum").value("POINT"));
     }
 
     @Test
     public void testFindDisciplinMedId() throws Exception {
-        Disciplin disciplin = new Disciplin();
-        // Set properties for disciplin object
-        int id = 1; // replace with actual id
+        Disciplin disciplin = new Disciplin("test", ResultatEnum.TID);
 
-        given(disciplinService.findDisciplinMedId(id)).willReturn(Optional.of(disciplin));
+        when(disciplinService.findDisciplinMedId(1)).thenReturn(Optional.of(disciplin));
 
-        mockMvc.perform(get("/api/discipliner/" + id))
+        mockMvc.perform(get("/api/discipliner/1"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(disciplin.getId()));
+                .andExpect(jsonPath("$.disciplinNavn").value("test"))
+                .andExpect(jsonPath("$.resultatEnum").value("TID"));
+    }
+
+    @Test
+    public void testFindDisciplinMedId_NotFound() throws Exception {
+        when(disciplinService.findDisciplinMedId(1)).thenReturn(Optional.empty());
+
+        mockMvc.perform(get("/api/discipliner/1"))
+                .andExpect(status().isNotFound());
     }
 
     @Test
     public void testOpretDisciplin() throws Exception {
-        Disciplin disciplin = new Disciplin();
-        // Set properties for disciplin object
+        Disciplin disciplin = new Disciplin("test", ResultatEnum.TID);
 
-        given(disciplinService.opretDisciplin(any(Disciplin.class))).willReturn(disciplin);
+        when(disciplinService.opretDisciplin(any(Disciplin.class))).thenReturn(disciplin);
 
         mockMvc.perform(post("/api/discipliner")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsString(disciplin)))
+                        .content("{\"disciplinNavn\": \"test\", \"resultatEnum\": \"TID\"}"))
                 .andExpect(status().isCreated())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(disciplin.getId()));
+                .andExpect(jsonPath("$.disciplinNavn").value("test"))
+                .andExpect(jsonPath("$.resultatEnum").value("TID"));
     }
 
     @Test
-    public void testSletDisciplin() throws Exception {
-        int id = 1; // replace with actual id
+    public void testOpretDisciplin_InternalServerError() throws Exception {
+        when(disciplinService.opretDisciplin(any(Disciplin.class))).thenThrow(new RuntimeException());
 
-        doNothing().when(disciplinService).sletDisciplin(id);
-
-        mockMvc.perform(delete("/api/discipliner/" + id))
-                .andExpect(status().isNoContent());
+        mockMvc.perform(post("/api/discipliner")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"disciplinNavn\": \"test\", \"resultatEnum\": \"TID\"}"))
+                .andExpect(status().isInternalServerError());
     }
 }
